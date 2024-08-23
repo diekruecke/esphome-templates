@@ -16,9 +16,14 @@ logger:
 # API is a requirement of the dashboard import.
 api:
 
+http_request:
+
 # OTA is required for Over-the-Air updating
 ota:
   - platform: esphome
+  - platform: http_request
+
+update:
   - platform: http_request
     name: Firmware Update
     source: https://diekruecke.github.io/esphome-templates/firmware/manifest.json

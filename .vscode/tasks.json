@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "test esphome",
+      "type": "shell",
+      "command": "docker run --rm --privileged -v './':/config -it ghcr.io/esphome/esphome:2024.8.0 run esp32-demo.factory.yaml",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "close": false
+      }
+    },
+    {
+      "label": "Install Act",
+      "type": "shell",
+      "command": "act -push",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "close": true
+      }
+    }
+  ]
+}
