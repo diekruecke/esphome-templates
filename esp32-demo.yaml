@@ -19,10 +19,16 @@ api:
 # OTA is required for Over-the-Air updating
 ota:
   - platform: esphome
+  - platform: http_request
+    name: Firmware Update
+    source: https://diekruecke.github.io/esphome-templates/firmware/manifest.json
 
 wifi:
   # Set up a wifi access point using the device name above
   ap:
+
+web_server:
+  version: 3
 
 # In combination with the `ap` this allows the user
 # to provision wifi credentials to the device.
