@@ -73,10 +73,10 @@ jobs:
         id: esphome-build
         with:
           yaml-file: ${{ matrix.file }}
-          version: $ESPHomeVersion
+          version: 2024.8.0
           complete-manifest: true
-          release-summary: $ReleaseSummary
-          release-url: $ReleaseUrl
+          release-summary: ${{ github.event_name == 'release' && github.event.release.body || '' }}
+          release-url: ${{ github.event_name == 'release' && github.event.release.html_url || '' }}
       - name: Move files for versioning
         run: |
           mkdir -p output/${{ needs.prepare.outputs.version }}
