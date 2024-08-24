@@ -1,0 +1,78 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version of the firmware to build'
+        required: true
+  release:
+    types: [published]
+
+jobs:
+  prepare:
+    name: Prepare
+    runs-on: ubuntu-latest
+    outputs:
+      files: ${{ steps.files-array.outputs.files }}
+      version: ${{ steps.version.outputs.version }}
+      artifact-prefix: ${{ steps.artifact-name.outputs.artifact-prefix }}
+    steps:
+      - name: Split files input into JSON array
+        id: files-array
+        run: |
+          files=$(echo "esp32-demo.factory.yaml, esp32-demo-2.factory.yaml" | jq -RcSn '[inputs | select(length>0)]')
+          echo files=$files >> $GITHUB_OUTPUT
+      - name: Generate version
+        id: version
+        run: |
+          if [ -n "${{ (github.event_name == 'release' && github.event.release.tag_name) || (github.event_name == 'workflow_dispatch' && inputs.version) || '' }}" ]; then
+            version=${{ (github.event_name == 'release' && github.event.release.tag_name) || (github.event_name == 'workflow_dispatch' && inputs.version) || '' }}
+          else
+            version=dev-$(date +'%Y%m%d-%H%M')
+          fi
+
+          echo version=$version >> $GITHUB_OUTPUT
+      - name: Generated random artifact prefix
+        id: artifact-name
+        run: |
+          artifact_prefix=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 16; echo)
+          echo artifact-prefix=$artifact_prefix >> $GITHUB_OUTPUT
+
+
+  build:
+    name: ${{ matrix.file }}
+    needs: [prepare]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        file: ${{ fromJson(needs.prepare.outputs.files) }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.7
+      - name: Replace project version
+        run: |
+          sed -i "s/version: dev/version: ${{ needs.prepare.outputs.version }}/g" ${{ matrix.file }}
+      - name: Build Firmware
+        uses: esphome/build-action@v4.0.1
+        id: esphome-build
+        with:
+          yaml-file: ${{ matrix.file }}
+          version: 2024.8.0
+          complete-manifest: true
+          release-summary: ${{ github.event_name == 'release' && github.event.release.body || '' }}
+          release-url: ${{ github.event_name == 'release' && github.event.release.html_url || '' }}
+      - name: Move files for versioning
+        run: |
+          mkdir -p output/${{ needs.prepare.outputs.version }}
+          mv ${{ steps.esphome-build.outputs.name }}/* output/${{ needs.prepare.outputs.version }}/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4.3.4
+        with:
+          name: firmware != '' && format('{0}-{1}', needs.prepare.outputs.artifact-prefix, steps.esphome-build.outputs.name) || steps.esphome-build.outputs.original-name }}
+          path: output

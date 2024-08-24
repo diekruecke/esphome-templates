@@ -1,5 +1,5 @@
 esphome:
-  name: esp32-demo-698b40
+  name: esp32-demo
   friendly_name: esp32-demo
   name_add_mac_suffix: false
 
