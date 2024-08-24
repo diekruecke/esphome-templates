@@ -15,7 +15,7 @@ on:
 jobs:
   build-firmware:
     name: Build Firmware
-    uses: esphome/workflows/.github/workflows/build.yml@main
+    uses: diekruecke/workflows/.github/workflows/esphome-build-firmware.yml@main
     with:
       files: |
         esp32-demo.factory.yaml
