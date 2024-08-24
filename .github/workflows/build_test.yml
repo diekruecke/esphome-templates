@@ -16,6 +16,11 @@ env:
   ESPHomeFiles: |
     esp32-demo.factory.yaml
     esp32-demo-2.factory.yaml
+  ReleaseVersion: ${{ (github.event_name == 'release' && github.event.release.tag_name) || (github.event_name == 'workflow_dispatch' && inputs.version) || '' }}
+  ESPHomeVersion: 2024.8.0
+  ReleaseSummary: ${{ github.event_name == 'release' && github.event.release.body || '' }}
+  ReleaseUrl: ${{ github.event_name == 'release' && github.event.release.html_url || '' }}
+  CombinedName: ${{ (github.event_name == 'release' && github.event.release.tag_name) || (github.event_name == 'workflow_dispatch' && inputs.version) || '' }}
 
 jobs:
   prepare:
@@ -34,8 +39,8 @@ jobs:
       - name: Generate version
         id: version
         run: |
-          if [ -n "${{ (github.event_name == 'release' && github.event.release.tag_name) || (github.event_name == 'workflow_dispatch' && inputs.version) || '' }}" ]; then
-            version=${{ (github.event_name == 'release' && github.event.release.tag_name) || (github.event_name == 'workflow_dispatch' && inputs.version) || '' }}
+          if [ -n "$ReleaseVersion" ]; then
+            version=$ReleaseVersion
           else
             version=dev-$(date +'%Y%m%d-%H%M')
           fi
@@ -68,10 +73,10 @@ jobs:
         id: esphome-build
         with:
           yaml-file: ${{ matrix.file }}
-          version: 2024.8.0
+          version: $ESPHomeVersion
           complete-manifest: true
-          release-summary: ${{ github.event_name == 'release' && github.event.release.body || '' }}
-          release-url: ${{ github.event_name == 'release' && github.event.release.html_url || '' }}
+          release-summary: $ReleaseSummary
+          release-url: $ReleaseUrl
       - name: Move files for versioning
         run: |
           mkdir -p output/${{ needs.prepare.outputs.version }}
@@ -79,5 +84,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4.3.4
         with:
-          name: firmware != '' && format('{0}-{1}', needs.prepare.outputs.artifact-prefix, steps.esphome-build.outputs.name) || steps.esphome-build.outputs.original-name }}
+          name: ${{ 'TestFirmware' != '' && format('{0}-{1}', needs.prepare.outputs.artifact-prefix, steps.esphome-build.outputs.name) || steps.esphome-build.outputs.original-name }}
           path: output
