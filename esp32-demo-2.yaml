@@ -1,0 +1,43 @@
+esphome:
+  name: esp32-demo-2
+  friendly_name: esp32-demo-2
+  name_add_mac_suffix: false
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+logger:
+
+api:
+
+http_request:
+
+ota:
+  - platform: esphome
+  - platform: http_request
+
+update:
+  - platform: http_request
+    id: firmware_update_start
+    name: Firmware Update
+    source: https://diekruecke.github.io/esphome-templates/firmware/manifest.json
+
+button:
+  - platform: template
+    name: Update Firmware from Github
+    on_press:
+      then:
+        - update.perform:
+            id: firmware_update_start
+
+wifi:
+  ap:
+
+web_server:
+  version: 3
+
+captive_portal:
+
+demo:
