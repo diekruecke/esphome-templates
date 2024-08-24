@@ -56,16 +56,17 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - uses: actions/download-artifact@v4.1.8
         with:
-          name: firmware
-          path: firmware
+          pattern: diekruecke.*
+          path: output/firmware
 
-      - name: Copy firmware and manifest
-        run: |-
-          mkdir -p output/firmware
-          cp -r firmware/${{ needs.build-firmware.outputs.version }}/* output/firmware/
+      # - name: Copy firmware and manifest
+      #   run: |-
+      #     mkdir -p output/firmware
+      #     cp -r firmware/${{ needs.build-firmware.outputs.version }}/* output/firmware/
 
       - uses: actions/download-artifact@v4.1.8
         with:
