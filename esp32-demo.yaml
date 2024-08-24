@@ -1,12 +1,11 @@
 esphome:
-  name: esp32-demo
+  name: esp32-demo-698b40
   friendly_name: esp32-demo
-  name_add_mac_suffix: true
+  name_add_mac_suffix: false
 
 esp32:
   board: esp32dev
   framework:
-    # type: arduino
     type: esp-idf
 
 logger:
@@ -14,7 +13,6 @@ logger:
 api:
 
 http_request:
-  verify_ssl: false
 
 ota:
   - platform: esphome
