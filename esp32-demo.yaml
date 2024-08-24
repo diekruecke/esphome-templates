@@ -1,26 +1,21 @@
 esphome:
   name: esp32-demo
   friendly_name: esp32-demo
-  # Automatically add the mac address to the name
-  # so you can use a single firmware for all devices
   name_add_mac_suffix: true
 
 esp32:
   board: esp32dev
   framework:
-    type: arduino
-    # type: esp-idf
+    # type: arduino
+    type: esp-idf
 
-# To be able to get logs from the device via serial and api.
 logger:
 
-# API is a requirement of the dashboard import.
 api:
 
 http_request:
   verify_ssl: false
 
-# OTA is required for Over-the-Air updating
 ota:
   - platform: esphome
   - platform: http_request
@@ -33,21 +28,18 @@ update:
 
 button:
   - platform: template
-    name: Template Button
+    name: Update Firmware from Github
     on_press:
       then:
         - update.perform:
             id: firmware_update_start
 
 wifi:
-  # Set up a wifi access point using the device name above
   ap:
 
 web_server:
   version: 3
 
-# In combination with the `ap` this allows the user
-# to provision wifi credentials to the device.
 captive_portal:
 
 demo:
