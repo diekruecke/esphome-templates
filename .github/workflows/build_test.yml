@@ -12,6 +12,11 @@ on:
   release:
     types: [published]
 
+env:
+  ESPHomeFiles: |
+    esp32-demo.factory.yaml
+    esp32-demo-2.factory.yaml
+
 jobs:
   prepare:
     name: Prepare
@@ -24,7 +29,7 @@ jobs:
       - name: Split files input into JSON array
         id: files-array
         run: |
-          files=$(echo "esp32-demo.factory.yaml esp32-demo-2.factory.yaml" | jq -RcSn '[inputs | select(length>0)]')
+          files=$(echo "$ESPHomeFiles" | jq -RcSn '[inputs | select(length>0)]')
           echo files=$files >> $GITHUB_OUTPUT
       - name: Generate version
         id: version
