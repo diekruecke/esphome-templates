@@ -12,12 +12,8 @@ Extra Satz auf Lock
 
 # Working
 
-<esp-web-install-button manifest="./firmware/manifest.json"></esp-web-install-button>
-
-<esp-web-install-button manifest="./firmware/manifest.json">
-  <button slot="activate">Connect Standard</button>
-  <span slot="unsupported">Ah snap, your browser doesn't work!</span>
-</esp-web-install-button>
+<esp-web-install-button manifest="./firmware/diekruecke-esp32-demo/manifest.json"></esp-web-install-button>
+<esp-web-install-button manifest="./firmware/diekruecke-esp32-demo/manifest.json">TEST</esp-web-install-button>
 
 <esp-web-install-button manifest="./firmware/diekruecke-esp32-demo/manifest.json">
   <button slot="activate">Connect ESP32-Demo</button>
