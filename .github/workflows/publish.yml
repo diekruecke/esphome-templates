@@ -60,13 +60,13 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4.1.8
         with:
-          pattern: diekruecke.*
-          path: output/firmware
+          name: firmware
+          path: firmware
 
-      # - name: Copy firmware and manifest
-      #   run: |-
-      #     mkdir -p output/firmware
-      #     cp -r firmware/${{ needs.build-firmware.outputs.version }}/* output/firmware/
+      - name: Copy firmware and manifest
+        run: |-
+          mkdir -p output/firmware
+          cp -r firmware/* output/firmware/
 
       - uses: actions/download-artifact@v4.1.8
         with:

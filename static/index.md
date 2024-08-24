@@ -14,6 +14,21 @@ Extra Satz auf Lock
 
 <esp-web-install-button manifest="./firmware/manifest.json"></esp-web-install-button>
 
+<esp-web-install-button manifest="./firmware/manifest.json">
+  <button slot="activate">Connect Standard</button>
+  <span slot="unsupported">Ah snap, your browser doesn't work!</span>
+</esp-web-install-button>
+
+<esp-web-install-button manifest="./firmware/diekruecke-esp32-demo/manifest.json">
+  <button slot="activate">Connect ESP32-Demo</button>
+  <span slot="unsupported">Ah snap, your browser doesn't work!</span>
+</esp-web-install-button>
+
+<esp-web-install-button manifest="./firmware/diekruecke-esp32-demo-2/manifest.json">
+  <button slot="activate">Connect ESP32-Demo-2</button>
+  <span slot="unsupported">Ah snap, your browser doesn't work!</span>
+</esp-web-install-button>
+
 <script type="module" src="https://unpkg.com/esp-web-tools@9/dist/web/install-button.js?module"></script>
 
 Der ganze Shit hier is Powered by ESPHome & ESP Web Tools
