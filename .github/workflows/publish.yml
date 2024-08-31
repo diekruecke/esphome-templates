@@ -89,3 +89,18 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4.0.5
+
+      - name: Delete firmware artifact
+        uses: geekyeggo/delete-artifact@v5.0.0
+        with:
+          name: firmware
+
+      - name: Delete ghpages-table-info artifact
+        uses: geekyeggo/delete-artifact@v5.0.0
+        with:
+          name: ghpages-table-info
+
+      - name: Delete site artifact
+        uses: geekyeggo/delete-artifact@v5.0.0
+        with:
+          name: site
