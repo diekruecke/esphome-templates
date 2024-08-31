@@ -14,12 +14,10 @@ Extra Satz auf Lock
 
 | Gerät              | Flash via Browser | Download Firmware | Download OTA File |
 | :---------------- | :------: | :------: | :------: |
-| ESP32 Demo Gerät        |   <esp-web-install-button manifest="./firmware/diekruecke-esp32-demo/manifest.json"></esp-web-install-button>   | DL Firmware | DL OTA File |
-| ESP8266 Demo Gerät         |   <esp-web-install-button manifest="./firmware/diekruecke-esp8266-demo/manifest.json"></esp-web-install-button>   | DL Firmware | DL OTA File |
+| ESP32 Demo Gerät | <esp-web-install-button manifest="./firmware/diekruecke-esp32-demo/manifest.json"></esp-web-install-button> | DL Firmware | DL OTA File |
+| ESP8266 Demo Gerät | <esp-web-install-button manifest="./firmware/diekruecke-esp8266-demo/manifest.json"></esp-web-install-button> | DL Firmware | DL OTA File |
+| Button Test | <esp-web-install-button manifest="./firmware/diekruecke-esp32-demo/manifest.json"> <button slot="activate">Custom install button</button> <span slot="unsupported">Ah snap, your browser doesn't work!</span> <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span> </esp-web-install-button> | DL Firmware | DL OTA File |
 
-<esp-web-install-button manifest="./firmware/diekruecke-esp32-demo/manifest.json"></esp-web-install-button>
-
-<esp-web-install-button manifest="./firmware/diekruecke-esp8266-demo/manifest.json"></esp-web-install-button>
 
 
 <script type="module" src="https://unpkg.com/esp-web-tools@9/dist/web/install-button.js?module"></script>
