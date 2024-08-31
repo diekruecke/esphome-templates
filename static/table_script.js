@@ -1,10 +1,10 @@
 // URL zur JSON-Datei
-const url = "https://diekruecke.github.io/esphome-templates/ghpages-table-info.json";
+const url = "./ghpages-table-info.json";
 
 // Funktion zum Generieren der Markdown-Tabelle
 function generateMarkdownTable(jsonData) {
     // Manuell die gewünschten Kopfzeilen definieren
-    const headers = ['Gerät', 'Flash via Browser', 'Download Firmware', 'Download OTA File'];
+    const headers = ['Gerät', 'Flash via Browser', 'Download Firmware', 'Download OTA File', 'ReadME'];
     let markdown = '| ' + headers.join(' | ') + ' |\n';
     markdown += '| ' + headers.map(() => '---').join(' | ') + ' |\n';
 
@@ -13,12 +13,14 @@ function generateMarkdownTable(jsonData) {
         const manifestButton = `<esp-web-install-button manifest="${item['manifest']}"> <button slot="activate">Connect</button></esp-web-install-button>`;
         const firmwareButton = `<a href="${item['firmware']}"><button>Firmware</button></a>`;
         const otaButton = `<a href="${item['ota']}"><button>OTA Firmware</button></a>`;
+        const readmeButton = `<a href="${item['github']}"><button>ReadME</button></a>`;  // Neuer HTML-Code für die "ReadME"-Spalte
 
         const row = [
             item['devicename'] || '',  // Schlüssel für 'Gerät'
             manifestButton,  // HTML Code für 'Flash via Browser'
             firmwareButton,  // HTML Code für 'Download Firmware'
-            otaButton  // HTML Code für 'Download OTA File'
+            otaButton,  // HTML Code für 'Download OTA File'
+            readmeButton  // HTML Code für 'ReadME'
         ];
         markdown += '| ' + row.join(' | ') + ' |\n';
     });
