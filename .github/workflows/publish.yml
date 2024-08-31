@@ -73,6 +73,11 @@ jobs:
           name: site
           path: output
 
+      - uses: actions/download-artifact@v4.1.8
+        with:
+          name: ghpages-table-info
+          path: output
+
       - uses: actions/upload-pages-artifact@v3.0.1
         with:
           path: output

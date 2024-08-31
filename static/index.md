@@ -44,7 +44,6 @@ Extra Satz auf Lock
 
 | Gerät              | Flash via Browser | Download Firmware | Download OTA File |
 | :---------------- | :------: | :------: | :------: |
-
 | ESP32 Demo Gerät | <esp-web-install-button manifest="./firmware/diekruecke-esp32-demo/manifest.json"> <button slot="activate">Connect</button></esp-web-install-button> | <a href="./firmware/diekruecke-esp32-demo/esp32-demo-esp32.factory.bin"><button>Firmware</button></a> | <a href="./firmware/diekruecke-esp32-demo/esp32-demo-esp32.ota.bin"><button>OTA Firmware</button></a> |
 | ESP8266 Demo Gerät | <esp-web-install-button manifest="./firmware/diekruecke-esp8266-demo/manifest.json"> <button slot="activate">Connect</button></esp-web-install-button> | <a href="./firmware/diekruecke-esp8266-demo/esp8266-demo-esp8266.factory.bin"><button>Firmware</button></a> | <a href="./firmware/diekruecke-esp8266-demo/esp8266-demo-esp8266.ota.bin"><button>OTA Firmware</button></a> |
 
@@ -57,9 +56,8 @@ Der ganze Shit hier is Powered by ESPHome & ESP Web Tools
 
 <script>
   // Create XMLHttpRequest object.
-  const proxyurl = "https://cors-anywhere.herokuapp.com/";
-  const url = "https://www.encodedna.com/library/sample.json";
-  fetch(proxyurl + url)
+  const url = "./ghpages-table-info.json";
+  fetch(url)
     .then(response => response.text())
     .then(contents => createTableFromJSON(contents))
     .catch((e) => console.log('error'))
