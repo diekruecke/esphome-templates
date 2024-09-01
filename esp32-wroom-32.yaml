@@ -1,12 +1,12 @@
 esphome:
-  name: esp32-demo-2
-  friendly_name: esp32-demo-2
+  name: esp32-wroom-32
+  friendly_name: ESP32 WROOM 32
   name_add_mac_suffix: true
 
 esp32:
   board: esp32dev
   framework:
-    type: esp-idf
+    type: arduino
 
 logger:
 
@@ -22,7 +22,7 @@ update:
   - platform: http_request
     id: firmware_update_start
     name: Firmware Update
-    source: https://diekruecke.github.io/esphome-templates/firmware/diekruecke-esp32-demo-2/manifest.json
+    source: https://diekruecke.github.io/esphome-templates/firmware/diekruecke-esp32-wroom-32/manifest.json
 
 button:
   - platform: template

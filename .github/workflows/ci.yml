@@ -17,7 +17,7 @@ jobs:
       matrix:
         file:
           - esp32-demo
-          - esp32-demo-2
+          - esp32-wroom-32
         esphome-version:
           - stable
           - beta

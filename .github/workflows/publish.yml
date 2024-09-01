@@ -19,7 +19,7 @@ jobs:
     with:
       files: |
         esp32-demo.factory.yaml
-        esp32-demo-2.factory.yaml
+        esp32-wroom-32.factory.yaml
       esphome-version: 2024.8.0
       combined-name: firmware
       release-summary: ${{ github.event_name == 'release' && github.event.release.body || '' }}
